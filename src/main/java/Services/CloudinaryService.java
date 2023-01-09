@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class CloudinaryService {
-    private String cloudURL = "cloudinary://744643581115479:GYEy7XKZxxs9Z8ahv52Zl3m3CkM@thepersistentcreatio";
+    private String cloudURL = "cloudinaryUrl";
     private Cloudinary cloud;
 
     public CloudinaryService() {
