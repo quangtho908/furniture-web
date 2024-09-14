@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 target/project_mvc/META-INF/MANIFEST.MF
+apache-tomcat-9.0.94
 # Log file
 *.log
 
