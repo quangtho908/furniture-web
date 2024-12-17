@@ -2,6 +2,7 @@ import Database.DBConnection;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
+import Services.DigitalSignService;
 import Redis.RedisService;
 
 @WebListener
@@ -15,6 +16,7 @@ public class Application implements ServletContextListener{
     public void contextInitialized(ServletContextEvent sce) {
         new DBConnection();
         System.out.println("MySQL is connected");
+        new DigitalSignService();
         new RedisService();
     }
 
