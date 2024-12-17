@@ -1,11 +1,14 @@
 package Services;
 
 import DTO.BaseDTO;
+import DTO.VerifyOrderDTO;
 import Model.Order;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleCallback;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OrderService extends BaseService<Order>{
 
@@ -90,5 +93,26 @@ public class OrderService extends BaseService<Order>{
         return (ArrayList<Order>) this.jdbi.withHandle(handle -> {
             return handle.createQuery("SELECT * FROM " + this.tableName + " WHERE ( id = ? or info like ? ) and transID " + condition).bind(0, infoSearch).bind(1, infoSearchDetail).mapToBean(Order.class).list();
         });
+    }
+
+    public void verifyOrder(VerifyOrderDTO dto) {
+      this.jdbi.useHandle(handle -> {
+        handle.createUpdate("UPDATE " + this.tableName +
+                " SET publicKey = :publicKey," +
+                "status = 1," +
+                "updatedAt = :updatedAt " +
+                "WHERE id = :id"
+        ).bind("id", dto.getOrderId()).bindBean(dto).execute();
+      });
+    }
+
+    public void cancelOrder(String orderId) {
+      this.jdbi.useHandle(handle -> {
+        handle.createUpdate("UPDATE " + this.tableName +
+                " SET status = 2," +
+                "updatedAt = :updatedAt " +
+                "WHERE id = :id"
+        ).bind("id", orderId).bind("updatedAt", LocalDate.now()).execute();
+      });
     }
 }

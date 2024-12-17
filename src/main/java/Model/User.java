@@ -12,6 +12,7 @@ public class User extends BaseModelUUID{
     private String address;
     private int status;
     private int type;
+    private int publicKey;
 
     public User() {
     }
@@ -110,6 +111,12 @@ public class User extends BaseModelUUID{
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getPublicKey() {return publicKey;}
+
+    public void setPublicKey(int publicKeyId) {
+      this.publicKey = publicKeyId;
     }
 
     @Override

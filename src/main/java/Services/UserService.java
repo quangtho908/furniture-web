@@ -200,4 +200,17 @@ public class UserService extends BaseService<User> {
         this.jdbi.useHandle(handle ->
             handle.createUpdate("DELETE FROM cart WHERE idUser = :idUser").bind("idUser", idUser).execute());
     }
+
+    public void updatePublicKey(int keyId, String userId) {
+      this.jdbi.useHandle(handle -> {
+        handle.createUpdate("UPDATE " + tableName +
+                        " SET publicKey = :keyId, " +
+                        "updatedAt = :updatedAt " +
+                        "WHERE id = :id")
+                .bind("id", userId)
+                .bind("updatedAt", LocalDate.now())
+                .bind("keyId", keyId)
+                .execute();
+      });
+    }
 }
