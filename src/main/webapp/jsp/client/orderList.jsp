@@ -60,14 +60,17 @@
                                 <th>ID</th>
                                 <th>Thông tin chi tiết</th>
                                 <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="<%= orders %>" var="order">
+                                <c:set var="currentOrder" value="${order}" scope="request" />
                                 <tr style="border-bottom: 1px solid #DEE2E6">
                                     <td style="border-right: 1px solid #DEE2E6"><a href="${pageContext.request.contextPath}/orderDetail?id=${order.id}">${order.id}</a></td>
                                     <td style="border-right: 1px solid #DEE2E6">${order.info}</td>
-                                    <td style="border-left: 1px solid #DEE2E6;">${order.createdAt}</td>
+                                    <td style="border-right: 1px solid #DEE2E6;">${order.createdAt}</td>
+                                    <td style="border-left: 1px solid #DEE2E6;"><%= ((Order) request.getAttribute("currentOrder")).getStatusString()%></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
