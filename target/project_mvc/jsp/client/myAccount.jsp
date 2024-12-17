@@ -25,6 +25,7 @@
   String phone = (user.getPhone() != null) ? user.getPhone() : "";
   String email = (user.getEmail() != null) ? user.getEmail() : "";
   String success = (request.getAttribute("success") == null) ? null : request.getAttribute("success").toString();
+  String publicKey = (request.getAttribute("publicKey") == null) ? "" : request.getAttribute("publicKey").toString();
 %>
 <body>
   <div id="myAccount_container">
@@ -99,6 +100,23 @@
         </div>
         <button class="btn-text-lg bgr-black hover-bg-red">Đổi mật khẩu</button>
       </form>
+        <form action="${pageContext.request.contextPath}/keys" method="post">
+            <div class="checkout-detail row mt-5">
+                <div class="checkout-billing col">
+                    <div class="checkout-billing_title">Cập nhật public key</div>
+
+                    <div class="input-secondary">
+                        <label for="oldPassword">Public Key mới</label>
+                        <textarea class="form-control" cols="20" name="publicKey" rows="4"></textarea>
+                    </div>
+                    <div class="input-secondary">
+                        <label for="newPassword">Public Key hiện tại</label>
+                        <textarea class="form-control" cols="20" rows="4" readOnly><%= publicKey %></textarea>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-text-lg bgr-black hover-bg-red">Cập nhật Key</button>
+        </form>
     </section>
     <%
       String errorChangePass = (request.getAttribute("errorChangePass") == null) ? null :  request.getAttribute("errorChangePass").toString();

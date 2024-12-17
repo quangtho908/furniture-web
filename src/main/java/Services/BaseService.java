@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public abstract class BaseService<M extends IModel> {
     protected Jdbi jdbi;
     protected String tableName;
-
     public BaseService(String tableName) {
         this.jdbi = DBConnection.jdbi;
         this.tableName = tableName;
@@ -37,7 +36,7 @@ public abstract class BaseService<M extends IModel> {
                 public M withHandle(Handle handle) throws Exception{
                     try {
                         return handle.createQuery(
-                                "SELECT * FROM " + tableName + " WHERE id = ?")
+                                "SELECT * FROM `" + tableName + "` WHERE id = ?")
                                 .bind(0, id)
                                 .mapToBean(classes).first();
                     }catch (IllegalStateException exception) {

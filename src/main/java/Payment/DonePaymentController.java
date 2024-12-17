@@ -85,9 +85,7 @@ public class DonePaymentController extends HttpServlet {
                             "Số điện thoại: " + order.getPhone() + "\n" +
                             "Email: " + order.getEmail() + "\n"
             ));
-        } catch (MailjetSocketTimeoutException e) {
-            throw new RuntimeException(e);
-        } catch (MailjetException e) {
+        } catch (MailjetSocketTimeoutException | MailjetException e) {
             throw new RuntimeException(e);
         }
     }

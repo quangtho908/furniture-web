@@ -15,7 +15,7 @@ public class MailService {
 
     public MailService() {
         if(mailjetClient == null) {
-            mailjetClient = new MailjetClient("apikey", "apisecret", new ClientOptions("v3.1"));
+            mailjetClient = new MailjetClient("0591f9ae8b4baee079a7e6611a0a33dd", "4355c3b5e468bba83c801840df48ff40", new ClientOptions("v3.1"));
         }
     }
 

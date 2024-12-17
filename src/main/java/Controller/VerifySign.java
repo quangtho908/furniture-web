@@ -75,7 +75,10 @@ public class VerifySign extends HttpServlet {
     this.orderService.verifyOrder(dto);
 
     RedisService.instance.removeValue("hashForSign_" + orderId + "_" + user.getId());
-
+    RedisService.instance.removeValue("waitingVerify_" + order.getUserId() + "_" + order.getId());
+    RedisService.instance.removeValue("readyForCancel_" + order.getUserId() + "_" + order.getId());
+    RedisService.instance.removeValue("waitRemove_" + order.getUserId() + "_" + order.getId());
+    RedisService.instance.removeValue("remind_" + order.getUserId() + "_" + order.getId());
     this.logsOrderService.delete(orderId, user.getId());
     response.sendRedirect("/orderDetail?id=" + orderId + "&success=true");
 

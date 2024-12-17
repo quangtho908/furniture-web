@@ -53,7 +53,7 @@
         </c:if>
         <jsp:include page="partials/Home/homeFooter.jsp"/>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
     <jsp:include page="common/tail.jsp"/>
 </body>
 </html>

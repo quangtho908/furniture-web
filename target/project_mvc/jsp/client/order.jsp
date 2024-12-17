@@ -66,13 +66,14 @@
             <div class="cart-menu_item selected">NHẬP THÔNG TIN </div>
             <div class="cart-menu_item">THANH TOÁN</div>
         </div>
-
-        <div class="checkout-other-action mt-5 mb-5">
-            <div class="action-link">
-                <i class="fa-regular fa-user action-icon"></i>
-                <a href="/login" disabled="<%=logged ? "true":"false"%>" class="action-content">BẤM VÀO ĐÂY ĐỂ ĐĂNG NHẬP</a>
+        <c:if test="<%= !logged %>">
+            <div class="checkout-other-action mt-5 mb-5">
+                <div class="action-link">
+                    <i class="fa-regular fa-user action-icon"></i>
+                    <a href="/login" class="action-content">BẤM VÀO ĐÂY ĐỂ ĐĂNG NHẬP</a>
+                </div>
             </div>
-        </div>
+        </c:if>
 
         <form action="${pageContext.request.contextPath}/order" method="post">
             <div class="checkout-detail row">
@@ -149,7 +150,6 @@
                 </div>
             </div>
         </form>
-
     </section>
 
     <jsp:include page="common/footer.jsp"/>

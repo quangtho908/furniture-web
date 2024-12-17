@@ -16,6 +16,7 @@
     <%
         int sumPrice = (int) request.getAttribute("sumPrice");
         String name = request.getAttribute("name").toString();
+        boolean logged = (boolean) request.getAttribute("logged");
     %>
     <body style="padding: 0">
         <div id="payment-container">
@@ -36,15 +37,16 @@
                         <div class="cart-menu_item">NHẬP THÔNG TIN </div>
                         <div class="cart-menu_item selected">THANH TOÁN</div>
                     </div>
-                    <div class="checkout-other-action mt-5 mb-5">
-                        <div class="action-link">
-                            <i class="fa-regular fa-user action-icon"></i>
+                    <c:if test="<%= !logged %>">
+                        <div class="checkout-other-action mt-5 mb-5">
+                            <div class="action-link">
+                                <i class="fa-regular fa-user action-icon"></i>
 
-                            <a href="/login" class="action-content">TRỞ VỀ TRANG ĐĂNG NHẬP</a>
+                                <a href="/login" class="action-content">TRỞ VỀ TRANG ĐĂNG NHẬP</a>
+                            </div>
                         </div>
-                    </div>
-
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    </c:if>
+                    <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="credit-tab" data-toggle="tab" data-target="#credit" type="button" role="tab" aria-controls="credit" aria-selected="true">Thanh toán ngay</button>
                         </li>
@@ -109,13 +111,13 @@
                                             <option value="en">English</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-text bgr-black">Thanh toán</button>
+                                    <button type="submit" class="btn btn-text bgr-black payment-btn">Thanh toán</button>
                                 </form>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="cod" role="tabpanel" aria-labelledby="cod-tab">
                             <form action="${pageContext.request.contextPath}/codOrder">
-                                <button type="submit" class="btn btn-text bgr-black">Đặt hàng</button>
+                                <button type="submit" class="btn btn-text bgr-black payment-btn">Đặt hàng</button>
                             </form>
                         </div>
                     </div>

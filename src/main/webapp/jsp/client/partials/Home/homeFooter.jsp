@@ -15,11 +15,8 @@
       <div class="wrap-content">
         <div class="col-foot-left">
           <div class="icon-title-foot">
-            <img class="icon-coston-style" src="../assets/imgs/icons/coston-icon.svg" alt="">
+            <img class="icon-coston-style" src="https://online.visual-paradigm.com/repository/images/24c5981d-4a75-4080-b617-d77a65aa4a1f/logos-design/furniture-logo-designed-for-interior-design-company.png" alt="">
           </div>
-        </div>
-        <div class="cpw-container">
-          <h2 class="hide-content">Furniture</h2>
         </div>
       </div>
     </div>

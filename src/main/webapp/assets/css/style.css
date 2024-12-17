@@ -1,6 +1,15 @@
 @import url('./base/_base.css');
 @import url('./components/_components.css');
 @import url('./sections/_sections.css');
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
 * {
   margin: 0;
   padding: 0;

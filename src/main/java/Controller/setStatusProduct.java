@@ -8,7 +8,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "SetUnavailableProduct", value = "/admin/setStatusProduct")
-public class setStatusProduct extends HttpServlet {
+public class SetStatusProduct extends HttpServlet {
 
     private ProductService productService;
 

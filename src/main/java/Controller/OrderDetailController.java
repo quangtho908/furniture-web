@@ -40,6 +40,9 @@ public class OrderDetailController extends HttpServlet {
         String hash = DigitalSignService.instance.hash(order);
         if(logged && hash != null && order.getStatus() == 0) {
           RedisService.instance.setValueEx("hashForSign_" + order.getId() + "_" + order.getUserId(), hash, 600);
+          RedisService.instance.setValue("readyForCancel_" + order.getUserId() + "_" + order.getId(), "true");
+          RedisService.instance.setValueEx("waitRemove_" + order.getUserId() + "_" + order.getId(), "true", 3600*12);
+          RedisService.instance.setValueEx("remind_" + order.getUserId() + "_" + order.getId(), "true", 3600*6);
           request.setAttribute("hash", hash);
         }
         request.setAttribute("order", order);

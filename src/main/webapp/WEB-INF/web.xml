@@ -4,7 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-
+    <servlet>
+        <servlet-name>exampleServlet</servlet-name>
+        <servlet-class>com.example.ExampleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>exampleServlet</servlet-name>
+        <url-pattern>/example</url-pattern>
+    </servlet-mapping>
   <error-page>
     <error-code>404</error-code>
     <location>/NotFoundPage</location>
