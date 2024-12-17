@@ -2,6 +2,7 @@
 <%@ page import="Model.Order" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored = "false" %>
+<%@ page import="DTO.AuthorizationData" %>
 
 <html lang="en">
     <head>
@@ -14,6 +15,18 @@
     <body>
         <%
             Order order = (Order) request.getAttribute("order");
+            AuthorizationData authorizationData = (AuthorizationData) session.getAttribute("authorization");
+            boolean logged = (boolean) request.getAttribute("logged");
+            String success = (String) request.getAttribute("success");
+            String error = (String) request.getAttribute("error");
+            boolean isOwner = false;
+            if(logged) {
+              isOwner = authorizationData.getId().equals(order.getUserId());
+            }
+            String hash = "";
+            if(logged) {
+              hash = (String) request.getAttribute("hash");
+            }
         %>
         <!--Begin display -->
         <div id="result-payment-container">
@@ -35,6 +48,10 @@
                     <div class="form-group">
                         <label >Mã đơn hàng:</label>
                         <label><%=order.getId()%></label>
+                    </div>
+                    <div class="form-group">
+                        <label >Trạng thái đơn:</label>
+                        <label><%=order.getStatusString()%></label>
                     </div>
                     <c:if test="<%= order.getTransID() != null %>">
                         <div class="form-group">
@@ -67,8 +84,40 @@
                         <label><%=order.getEmail()%></label>
                     </div>
                 </div>
-
+                <c:if test="<%=isOwner && (order.getStatus() == 0)%>">
+                    <form action="${pageContext.request.contextPath}/verifySign" method="post">
+                        <h3 class="mt-5">Xác minh chữ ký số</h3>
+                        <div class="form-group mt-3">
+                            <label for="amount">Nội dung ký</label>
+                            <textarea class="form-control" cols="20" id="vnp_OrderInfo" name="hash" rows="2" readOnly><%= hash %></textarea>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="OrderDescription">chữ ký</label>
+                            <textarea class="form-control" cols="20" id="vnp_OrderInfo" name="sign" rows="2"></textarea>
+                        </div>
+                        <div style="display: none;">
+                            <input name="orderId" value="<%= order.getId()%>" />
+                        </div>
+                        <button class="btn-text-lg bgr-black hover-bg-red monts">Xác minh chữ ký</button>
+                    </form>
+                </c:if>
             </div>
+            <c:if test="<%=error != null%>">
+                <div class="alert-danger alert alert-dismissible fade show fixed-top" role="alert">
+                    <strong>Không thành công</strong> <%=error%>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
+            <c:if test="<%=success != null%>">
+                <div class="alert-success alert alert-dismissible fade show fixed-top" role="alert">
+                    <strong>Thành công</strong> <%=success%>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
             <jsp:include page="common/footer.jsp"/>
         </div>
 

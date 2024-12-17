@@ -1,5 +1,8 @@
 package Model;
 
+import DTO.PayloadSign;
+import com.google.gson.Gson;
+
 public class Order extends BaseModelUUID{
     private String info;
     private int price;
@@ -12,6 +15,8 @@ public class Order extends BaseModelUUID{
     private String phone;
     private String email;
     private String userId;
+    private int status;
+    private int publicKey;
     public Order() {
     }
 
@@ -115,5 +120,29 @@ public class Order extends BaseModelUUID{
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public int getPublicKey() {return publicKey;}
+
+    public void setPublicKey(int publicKeyId) {
+      this.publicKey = publicKeyId;
+    }
+    public int getStatus() {
+      return this.status;
+    }
+    public String getStatusString() {
+      String[] statuses = {"Chờ xác thực", "Đã xác thực", "Đã huỷ" ,"Đã hoàn thành"};
+
+      return statuses[status];
+    }
+
+    public void setStatus(int status) {
+      this.status = status;
+    }
+
+    public String geHashData() {
+      PayloadSign payload = new PayloadSign(id, userId, info, price, createdAt);
+      Gson gson = new Gson();
+      return gson.toJson(payload);
     }
 }
