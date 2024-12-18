@@ -50,6 +50,7 @@ public class CheckOrder extends HttpServlet {
         RedisService.instance.removeValue("waitingVerify_" + logsOrder.getUserId() + "_" + logsOrder.getOrderId());
         RedisService.instance.removeValue("readyForCancel_" + logsOrder.getUserId() + "_" + logsOrder.getOrderId());
         RedisService.instance.removeValue("hashForSign_" + logsOrder.getId() + "_" + logsOrder.getUserId());
+        RedisService.instance.removeValue("remind_" + logsOrder.getId() + "_" + logsOrder.getUserId());
         sendMailCancel(logsOrder);
         this.logsOrderService.delete(logsOrder.getOrderId(), logsOrder.getUserId());
         continue;

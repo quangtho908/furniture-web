@@ -1,7 +1,9 @@
 package Controller;
 
+import DTO.PayloadSignVerify;
 import Model.User;
 import Services.AuthenticationService;
+import Services.DigitalSignService;
 import Services.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -39,11 +41,16 @@ public class ForgotPasswordController extends HttpServlet {
             request.getRequestDispatcher("/jsp/client/forgotPassword.jsp").forward(request, response);
         }else {
             HttpSession session = request.getSession(true);
-            String rand = RandomStringUtils.randomAlphabetic(6);
-            this.authenticationService.sendVerify(rand, user.getEmail());
+            String rand = RandomStringUtils.randomAlphabetic(16);
+            PayloadSignVerify payloadSignVerify = new PayloadSignVerify(
+                    rand,
+                    "/verifyForgotPassword",
+                    user.getId()
+            );
+            String linkVerify = DigitalSignService.instance.getCredentials(payloadSignVerify);
+            this.authenticationService.sendVerify(linkVerify, user.getEmail());
             session.setAttribute("id", user.getId());
-            session.setAttribute(user.getEmail(), rand);
-            response.sendRedirect("/verifyForgotPassword");
+            response.sendRedirect("/verifyForgotPassword?waitVerify=true");
         }
     }
 }

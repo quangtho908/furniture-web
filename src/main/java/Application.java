@@ -2,6 +2,9 @@ import Database.DBConnection;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
+
+import Properties.LoadProperties;
+import Services.AESService;
 import Services.DigitalSignService;
 import Redis.RedisService;
 
@@ -16,8 +19,11 @@ public class Application implements ServletContextListener{
     public void contextInitialized(ServletContextEvent sce) {
         new DBConnection();
         System.out.println("MySQL is connected");
+        new LoadProperties();
         new DigitalSignService();
         new RedisService();
+        new AESService();
+
     }
 
     @Override
