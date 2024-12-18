@@ -33,6 +33,7 @@ public class CheckAuthentication implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = ((HttpServletRequest) request).getSession(true);
         AuthorizationData data = (AuthorizationData) session.getAttribute("authorization");
         int cartNumber = (data == null) ? 0 : data.getCarts().size();
@@ -40,14 +41,14 @@ public class CheckAuthentication implements Filter {
         request.setAttribute("cartNumber", cartNumber);
         request.setAttribute("logged", user != null);
         request.setAttribute("user", user);
-        if(httpRequest.getMethod().equalsIgnoreCase("GET")){
-
+        if(httpRequest.getMethod().equalsIgnoreCase("GET")) {
+            if(httpRequest.getRequestURI().endsWith("/verify") || httpRequest.getRequestURI().endsWith("/verifyAccount")) {
+              chain.doFilter(request, response);
+              return;
+            }
             if ((user != null) && (user.getStatus() == StatusAccount.DISABLE.ordinal())) {
-                String rand = RandomStringUtils.randomAlphabetic(6);
-                this.authenticationService.sendVerify(rand, user.getEmail());
                 session.setAttribute("id", data.getId());
-                session.setAttribute(user.getEmail(), rand);
-                httpRequest.getRequestDispatcher("/jsp/client/verifyAccount.jsp").forward(request,response);
+                httpResponse.sendRedirect("/verifyAccount?waitVerify=true");
                 return;
             }
         }

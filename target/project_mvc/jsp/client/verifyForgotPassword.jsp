@@ -17,6 +17,8 @@
 <body>
 <%
     String error = (request.getAttribute("error") == null) ? "" : request.getAttribute("error").toString();
+    String success = (request.getAttribute("success") == null) ? "" : request.getAttribute("success").toString();
+    boolean waitVerify = request.getAttribute("waitVerify") != null && (boolean) request.getAttribute("waitVerify");
 %>
 <div id="signup-container">
     <header>
@@ -31,23 +33,26 @@
         <div class="forgot-password container-fluid">
             <div class="forgot-password-swap">
                 <div class="form-reset-password">
-                    <p class="monts">Chúng tôi đã gửi một đoạn code xác minh email đến email đăng ký của bạn hãy kiểm tra email và nhập đoạn code vào ô bên dưới</p>
+                    <div class="mb-3 overflow-hidden">
+                        Đây là trang quên mật khẩu, hãy sử dụng link đã được gửi tới email để xác thực
+                    </div>
+                    <c:if test="<%= waitVerify %>">
+                        <p class="monts">Chúng tôi đã gửi link xác thực đến email của bạn</p>
+                    </c:if>
                     <c:if test="<%= !error.isEmpty() %>">
                         <div class="color-red mb-3 overflow-hidden">
                             <%= error %>
                         </div>
                     </c:if>
-                    <div class="container-ip-info-user">
-                        <label class="monts" for="user-login">Mã xác minh</label>
-                        <input id="user-login" name="code" type="text">
-                    </div>
-                    <div class="container-ip-info-user">
-                        <label class="monts" for="user-login">Mật khẩu mới</label>
-                        <input id="new-password" name="password" type="password">
-                    </div>
-                    <div class="btn-form-forgot-password">
-                        <button class="btn-text-lg bgr-black hover-bg-red monts" name="action" value="verify">ĐẶT LẠI MẬT KHẨU</button>
-                    </div>
+                    <c:if test="<%= !success.isEmpty() %>">
+                        <div class="container-ip-info-user">
+                            <label class="monts" for="new-password">Mật khẩu mới</label>
+                            <input id="new-password" name="password" type="password">
+                        </div>
+                        <div class="btn-form-forgot-password">
+                            <button class="btn-text-lg bgr-black hover-bg-red monts" name="action" value="verify">ĐẶT LẠI MẬT KHẨU</button>
+                        </div>
+                    </c:if>
                     <div class="btn-form-forgot-password">
                         <button class="btn-text-lg bgr-black hover-bg-red monts" name="action" value="resend">GỬI LẠI MÃ</button>
                     </div>

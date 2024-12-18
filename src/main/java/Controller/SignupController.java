@@ -1,19 +1,24 @@
 package Controller;
 
+import DTO.PayloadSignVerify;
 import Model.MailContent;
 import Model.StatusAccount;
 import Model.TypeAccount;
 import Model.User;
-import Services.AuthenticationService;
-import Services.MailService;
-import Services.UserService;
+import Properties.LoadProperties;
+import Redis.RedisService;
+import Services.*;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Base64;
+
 @WebServlet(name = "SignupController", value = "/signup")
 public class SignupController extends HttpServlet {
 
@@ -53,13 +58,18 @@ public class SignupController extends HttpServlet {
                 User model = new User(email, passwordHash, StatusAccount.DISABLE.ordinal(), TypeAccount.USER.ordinal());
 
                 String id = this.userService.create(model);
-                String rand = RandomStringUtils.randomAlphabetic(6);
+                String rand = RandomStringUtils.randomAlphabetic(16);
 
-                this.authenticationService.sendVerify(rand, email);
+                PayloadSignVerify payloadSignVerify = new PayloadSignVerify(
+                        rand,
+                        "/verifyAccount",
+                        id
+                );
+                String linkVerify = DigitalSignService.instance.getCredentials(payloadSignVerify);
+                this.authenticationService.sendVerify(linkVerify, email);
 
                 session.setAttribute("id", id);
-                session.setAttribute(email, rand);
-                response.sendRedirect("/verify");
+                response.sendRedirect("/verifyAccount?waitVerify=true");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
