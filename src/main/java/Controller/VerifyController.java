@@ -69,6 +69,8 @@ public class VerifyController extends HttpServlet {
       RedisService.instance.removeValue("verify_iv_" + payload.getUserId());
       RedisService.instance.removeValue("verify_key_" + payload.getUserId());
       resp.sendRedirect(payload.getRedirect() + "?success=true");
+      return;
     }
+    resp.sendRedirect(payload.getRedirect() + "?error=true");
   }
 }
