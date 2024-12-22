@@ -32,6 +32,7 @@
                 <li class="menu_list_item"><a href="${pageContext.request.contextPath}/products">Sản phẩm</a></li>
                 <li class="menu_list_item"><a href="${pageContext.request.contextPath}/about">Về chúng tôi</a></li>
                 <li class="menu_list_item"><a href="${pageContext.request.contextPath}/contact">Liên hệ</a></li>
+                <li class="menu_list_item"><a href="${pageContext.request.contextPath}/download">Tải về</a></li>
                 <c:choose>
                     <c:when test="<%= logged%>">
                         <li class="menu_list_item hidden_item"><a href="${pageContext.request.contextPath}/myAccount">
