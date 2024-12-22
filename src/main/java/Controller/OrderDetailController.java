@@ -37,7 +37,7 @@ public class OrderDetailController extends HttpServlet {
             return;
         }
         Order order = this.orderService.findById(id, Order.class);
-        String hash = DigitalSignService.instance.hash(order);
+        String hash = DigitalSignService.instance.hash(order); // singleton
         if(logged && hash != null && order.getStatus() == 0) {
           RedisService.instance.setValueEx("hashForSign_" + order.getId() + "_" + order.getUserId(), hash, 600);
           RedisService.instance.setValue("readyForCancel_" + order.getUserId() + "_" + order.getId(), "true");

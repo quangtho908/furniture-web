@@ -11,6 +11,13 @@ public class LogsOrder implements IModel {
   private String oldPrice;
   private LocalDate oldDateOrder;
   private LocalDateTime createdAt;
+  private String oldCountry;
+  private String oldCity;
+  private String oldDistrict;
+  private String oldAddress;
+  private String oldPhone;
+  private String oldEmail;
+  private String oldUsername;
   private int action;
   
   public LogsOrder() {}
@@ -83,5 +90,61 @@ public class LogsOrder implements IModel {
 
   public void setAction(int action) {
     this.action = action;
+  }
+
+  public String getOldCountry() {
+    return oldCountry;
+  }
+
+  public void setOldCountry(String oldCountry) {
+    this.oldCountry = oldCountry;
+  }
+
+  public String getOldCity() {
+    return oldCity;
+  }
+
+  public void setOldCity(String oldCity) {
+    this.oldCity = oldCity;
+  }
+
+  public String getOldDistrict() {
+    return oldDistrict;
+  }
+
+  public void setOldDistrict(String oldDistrict) {
+    this.oldDistrict = oldDistrict;
+  }
+
+  public String getOldAddress() {
+    return oldAddress;
+  }
+
+  public void setOldAddress(String oldAddress) {
+    this.oldAddress = oldAddress;
+  }
+
+  public String getOldPhone() {
+    return oldPhone;
+  }
+
+  public void setOldPhone(String oldPhone) {
+    this.oldPhone = oldPhone;
+  }
+
+  public String getOldEmail() {
+    return oldEmail;
+  }
+
+  public void setOldEmail(String oldEmail) {
+    this.oldEmail = oldEmail;
+  }
+
+  public String getOldUsername() {
+    return oldUsername;
+  }
+
+  public void setOldUsername(String oldUsername) {
+    this.oldUsername = oldUsername;
   }
 }

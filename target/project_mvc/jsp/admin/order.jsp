@@ -223,10 +223,12 @@
                                             <th>ID</th>
                                             <th>Thông tin chi tiết</th>
                                             <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
                                         </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                         <c:forEach items="<%= orders %>" var="order">
+                                            <c:set var="currentOrder" value="${order}" scope="request" />
                                             <tr>
                                                 <td><a href="${pageContext.request.contextPath}/admin/adminOrderDetail?id=${order.id}"><strong>${order.id}</strong></a></td>
                                                 <td>${order.info}</td>
@@ -243,6 +245,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td><span class="badge bg-label-primary me-1"><%=((Order) request.getAttribute("currentOrder")).getStatusString()%></span></td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>

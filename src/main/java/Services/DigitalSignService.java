@@ -83,6 +83,7 @@ public class DigitalSignService {
 
   public PublicKey getPublicKey(String base64) {
     try{
+      // base64 => public key
       KeyFactory keyFactory = KeyFactory.getInstance("DSA");
       X509EncodedKeySpec publicSpec = new X509EncodedKeySpec(Base64.getDecoder().decode(base64));
       return keyFactory.generatePublic(publicSpec);

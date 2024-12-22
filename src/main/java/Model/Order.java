@@ -141,7 +141,9 @@ public class Order extends BaseModelUUID{
     }
 
     public String geHashData() {
+
       PayloadSign payload = new PayloadSign(id, userId, info, price, createdAt);
+      // payload => json
       Gson gson = new Gson();
       return gson.toJson(payload);
     }

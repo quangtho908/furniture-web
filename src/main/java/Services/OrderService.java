@@ -1,6 +1,8 @@
 package Services;
 
 import DTO.BaseDTO;
+import DTO.OrderDTO;
+import DTO.UpdateOrderDTO;
 import DTO.VerifyOrderDTO;
 import Model.Order;
 import org.jdbi.v3.core.Handle;
@@ -113,6 +115,21 @@ public class OrderService extends BaseService<Order>{
                 "updatedAt = :updatedAt " +
                 "WHERE id = :id"
         ).bind("id", orderId).bind("updatedAt", LocalDate.now()).execute();
+      });
+    }
+
+    public void adminUpdateOrder(UpdateOrderDTO dto) {
+      this.jdbi.useHandle(handle -> {
+        handle.createUpdate("UPDATE " + this.tableName +
+                " SET country = :country, " +
+                "city = :city, " +
+                "district = :district, " +
+                "address = :address, " +
+                "phone = :phone, " +
+                "email = :email, " +
+                "updatedAt = :updatedAt " +
+                "WHERE id = :id"
+        ).bindBean(dto).execute();
       });
     }
 }

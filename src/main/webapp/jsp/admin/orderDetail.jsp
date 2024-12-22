@@ -83,6 +83,10 @@
                                     <label >Mã đơn hàng:</label>
                                     <label><%=order.getId()%></label>
                                 </div>
+                                <div class="form-group">
+                                    <label >Trạng thái:</label>
+                                    <label><%=order.getStatusString()%></label>
+                                </div>
                                 <c:if test="<%= order.getTransID() != null %>">
                                     <div class="form-group">
                                         <label>Mã giao dịch VNPAY:</label>
@@ -93,26 +97,109 @@
                                     <label >Tên khách hàng:</label>
                                     <label><%=order.getUsername()%></label>
                                 </div>
-                                <div class="form-group">
-                                    <label>Quốc gia:</label>
-                                    <label><%=order.getCountry()%></label>
-                                </div>
-                                <div class="form-group">
-                                    <label >Thành phố:</label>
-                                    <label><%=order.getCity()%></label>
-                                </div>
-                                <div class="form-group">
-                                    <label >Quận/Huyện:</label>
-                                    <label><%=order.getDistrict()%></label>
-                                </div>
-                                <div class="form-group">
-                                    <label >Số điện thoại:</label>
-                                    <label><%=order.getPhone()%></label>
-                                </div>
-                                <div class="form-group">
-                                    <label >Email:</label>
-                                    <label><%=order.getEmail()%></label>
-                                </div>
+                                <form action="${pageContext.request.contextPath}/admin/adminOrderDetail?id=<%=order.getId()%>" method="post">
+                                    <div class="form-group">
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label" for="country">Quốc gia</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="country"
+                                                    placeholder="Quốc gia"
+                                                    name="country"
+                                                    value="<%=order.getCountry()%>"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label" for="city">Thành phố</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="city"
+                                                        placeholder="Thành phố"
+                                                        name="city"
+                                                        value="<%=order.getCity()%>"
+                                                        required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label" for="district">Quận/huyện</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="district"
+                                                        placeholder="Quận/huyện"
+                                                        name="district"
+                                                        value="<%=order.getDistrict()%>"
+                                                        required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label" for="address">Địa chỉ</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="address"
+                                                        placeholder="Địa chỉ"
+                                                        name="address"
+                                                        value="<%=order.getAddress()%>"
+                                                        required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label" for="email">Email</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="email"
+                                                        placeholder="email"
+                                                        name="email"
+                                                        value="<%=order.getEmail()%>"
+                                                        required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label" for="phone">Số điện thoại</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="phone"
+                                                        placeholder="Số điện thoại"
+                                                        name="phone"
+                                                        value="<%=order.getPhone()%>"
+                                                        required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
 
                         </div>
