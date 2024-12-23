@@ -84,32 +84,9 @@ public class CheckOrder extends HttpServlet {
   private void sendMailWarning(LogsOrder logsOrder) {
     User user = this.userService.findById(logsOrder.getUserId(), User.class);
     Order order = this.orderService.findById(logsOrder.getOrderId(), Order.class);
-    MailContent mailContent = new MailContent(
-            "Đơn hàng của bạn bị thay đổi",
-            "Mã đơn hàng: " + order.getId() + "\n" +
-                    "Đã thay đổi lúc: " + logsOrder.getCreatedAt() + "\n\n" +
-                    "Tên người đặt mới: " + order.getUsername() + "\n" +
-                    "Tên người đặt cũ: " + logsOrder.getOldUsername() + "\n\n" +
-                    "Thông tin sản phẩm mới: " + order.getInfo() + "\n" +
-                    "Thông tin sản phẩm cũ: " + logsOrder.getOldInfo() + "\n\n" +
-                    "Tổng giá mới: " + order.getPrice() + "\n" +
-                    "Tổng giá cũ: " + logsOrder.getOldPrice() + "\n\n" +
-                    "Ngày tạo đơn mới: " + order.getCreatedAt() + "\n" +
-                    "Ngày tạo đơn cũ: " + logsOrder.getOldDateOrder() + "\n\n" +
-                    "Quốc gia mới: " + order.getCountry() + "\n" +
-                    "Quốc gia cũ: " + logsOrder.getOldCountry() + "\n\n" +
-                    "Thành phố mới: " + order.getCity() + "\n" +
-                    "Thành phố cũ: " + logsOrder.getOldCity() + "\n\n" +
-                    "Quận/Huyện mới :" + order.getDistrict() + "\n" +
-                    "Quận/Huyện cũ: " + logsOrder.getOldDistrict() + "\n\n" +
-                    "Địa chỉ mới: " + order.getAddress() + "\n" +
-                    "Địa chỉ cũ: " + logsOrder.getOldAddress() + "\n\n" +
-                    "Số điện thoại mới: " + order.getPhone() + "\n" +
-                    "Số điện thoại cũ: " + logsOrder.getOldPhone() + "\n\n" +
-                    "Email mới: " + order.getEmail() + "\n" +
-                    "Email cũ: " + logsOrder.getOldEmail() + "\n\n"
-            );
+    MailContent mailContent = getContentWarning(logsOrder, order);
     try {
+      mailService.send("quangtho.dev@gmail.com", mailContent);
       mailService.send(user.getEmail(), mailContent);
     } catch (MailjetSocketTimeoutException | MailjetException e) {
       throw new RuntimeException(e);
@@ -150,5 +127,33 @@ public class CheckOrder extends HttpServlet {
     } catch (MailjetSocketTimeoutException | MailjetException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private MailContent getContentWarning(LogsOrder logsOrder, Order order) {
+    return  new MailContent(
+            "Đơn hàng của bạn bị thay đổi",
+            "Mã đơn hàng: " + order.getId() + "\n" +
+                    "Đã thay đổi lúc: " + logsOrder.getCreatedAt() + "\n\n" +
+                    "Tên người đặt mới: " + order.getUsername() + "\n" +
+                    "Tên người đặt cũ: " + logsOrder.getOldUsername() + "\n\n" +
+                    "Thông tin sản phẩm mới: " + order.getInfo() + "\n" +
+                    "Thông tin sản phẩm cũ: " + logsOrder.getOldInfo() + "\n\n" +
+                    "Tổng giá mới: " + order.getPrice() + "\n" +
+                    "Tổng giá cũ: " + logsOrder.getOldPrice() + "\n\n" +
+                    "Ngày tạo đơn mới: " + order.getCreatedAt() + "\n" +
+                    "Ngày tạo đơn cũ: " + logsOrder.getOldDateOrder() + "\n\n" +
+                    "Quốc gia mới: " + order.getCountry() + "\n" +
+                    "Quốc gia cũ: " + logsOrder.getOldCountry() + "\n\n" +
+                    "Thành phố mới: " + order.getCity() + "\n" +
+                    "Thành phố cũ: " + logsOrder.getOldCity() + "\n\n" +
+                    "Quận/Huyện mới :" + order.getDistrict() + "\n" +
+                    "Quận/Huyện cũ: " + logsOrder.getOldDistrict() + "\n\n" +
+                    "Địa chỉ mới: " + order.getAddress() + "\n" +
+                    "Địa chỉ cũ: " + logsOrder.getOldAddress() + "\n\n" +
+                    "Số điện thoại mới: " + order.getPhone() + "\n" +
+                    "Số điện thoại cũ: " + logsOrder.getOldPhone() + "\n\n" +
+                    "Email mới: " + order.getEmail() + "\n" +
+                    "Email cũ: " + logsOrder.getOldEmail() + "\n\n"
+    );
   }
 }
